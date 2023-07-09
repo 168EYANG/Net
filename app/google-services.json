@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "685474275693",
+    "project_id": "net-northwestern",
+    "storage_bucket": "net-northwestern.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685474275693:android:1cd3531d3200a58588ba64",
+        "android_client_info": {
+          "package_name": "com.example.net"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwrjUd2pwakBHb2iLDhirdEWE0mfvxbPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685474275693:android:8bf5efa3b5cc124388ba64",
+        "android_client_info": {
+          "package_name": "com.example.nettest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwrjUd2pwakBHb2iLDhirdEWE0mfvxbPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

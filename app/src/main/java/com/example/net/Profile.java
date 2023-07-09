@@ -1,16 +1,14 @@
-package com.example.net.ui.login;
+package com.example.net;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.net.R;
-
-public class ResumeUpload extends AppCompatActivity {
+public class Profile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resume_upload);
+        setContentView(R.layout.activity_profile);
     }
 }
