@@ -2,11 +2,13 @@ package com.example.net;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -55,10 +57,11 @@ public class ResumeUpload extends AppCompatActivity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(ResumeUpload.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(ResumeUpload.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     selectPdf();
                 } else {
-                    ActivityCompat.requestPermissions(ResumeUpload.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
+                    requestStoragePermission();
+//                    ActivityCompat.requestPermissions(ResumeUpload.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
                 }
             }
         });
@@ -69,10 +72,32 @@ public class ResumeUpload extends AppCompatActivity {
                 if (pdfUri != null) {
                     uploadFile(pdfUri);
                 } else {
-                    Toast.makeText(ResumeUpload.this, "Select a file", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ResumeUpload.this, "Select a file", Toast.LENGTH_SHORT).show();
+                    //TODO go to the next screen, user can choose NOT to upload a resume right now
                 }
             }
         });
+    }
+
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this).setTitle("Permission needed").setMessage("NET is requesting storage permission")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(ResumeUpload.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
+        }
     }
 
     @Override
@@ -80,7 +105,21 @@ public class ResumeUpload extends AppCompatActivity {
         if (requestCode == 9 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             selectPdf();
         } else {
-            Toast.makeText(ResumeUpload.this, "Please provide storage permission", Toast.LENGTH_LONG).show();
+//            Toast.makeText(ResumeUpload.this, "Please provide storage permission", Toast.LENGTH_LONG).show();
+            new AlertDialog.Builder(this).setTitle("Permission needed").setMessage("NET is requesting storage permission")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            selectPdf();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
         }
     }
 
